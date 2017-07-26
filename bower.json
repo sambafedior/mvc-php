@@ -1,0 +1,24 @@
+{
+  "name": "sambafedior",
+  "authors": [
+    "samba <samba.fedior@google.fr>"
+  ],
+  "description": "mvc project",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery-ui": "^1.12.1",
+    "datatables.net-bs": "^2.1.1",
+    "select2": "^4.0.3"
+  }
+}
