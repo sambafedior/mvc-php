@@ -4,7 +4,8 @@
  * @param array $data
  * @return mixed
  */
-function getViewContent($view, array $data = []){
+function getViewContent($view, array $data = [])
+{
 //Mise en tampon du résultat de l'interpréteur PHP
     ob_start();
 //Exportation des variables
@@ -22,7 +23,8 @@ function getViewContent($view, array $data = []){
  * @param string $layout
  * @return mixed
  */
-function getRenderedView($view, array $data = [], $layout="default-layout"){
+function getRenderedView($view, array $data = [], $layout = "default-layout")
+{
 //Récupération du contenu de la vue
     $viewContent = getViewContent($view, $data);
 //Ajout de la vue aux données

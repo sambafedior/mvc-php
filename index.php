@@ -1,21 +1,19 @@
 <?php
-//chargement de la bibliotheque
+//Chargement de la bibliothèque
 require "lib/mvc.php";
 
-//Definition des variables
-$name = "Samba";
-$pageTitle = "Acceuil";
+//Définition des variables
+$name = "toto";
+$pageTitle = "Accueil";
 
-
-//liste de tous les fichiers dans le dossier data
+//liste de tous les fichiers dans /data
 $fileList = glob("data/*.json");
 
-//recuperation de la vue
+//Récupération de la vue
 $html = getRenderedView("home", [
     "pageTitle" => $pageTitle,
     "name" => $name,
     "list" => $fileList
-
 ]);
 
 //Affichage de la vue
