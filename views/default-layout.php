@@ -9,6 +9,14 @@
 <body class="container-fluid">
 
 <div class="row">
+    <?php if(isset($_SESSION["flash"])):?>
+        <div class="alert alert-info col-md-6 col-md-offset-3">
+            <?php
+            echo $_SESSION["flash"];
+            unset($_SESSION["flash"]);
+            ?>
+        </div>
+    <?php endif; ?>
     <div class="col-md-8 col-md-offset-2">
         <?=$viewContent?>
     </div>
