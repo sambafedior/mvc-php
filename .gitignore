@@ -1,2 +1,5 @@
-.idea/*
 bower_components/*
+.idea/*
+bower_assets/*
+
+.idea/*
