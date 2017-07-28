@@ -11,7 +11,7 @@ function getViewContent($view, array $data = [])
 //Exportation des variables
     extract($data);
 //inclusion de la vue
-    require VIEW_PATH."/{$view}.php";
+    require VIEW_PATH . "/{$view}.php";
 //Récupération du contenu du tampon dans une variable
     $viewContent = ob_get_clean();
     return $viewContent;
@@ -32,4 +32,23 @@ function getRenderedView($view, array $data = [], $layout = "default-layout")
 //Obtention du layout
     $rendered = getViewContent($layout, $data);
     return $rendered;
+}
+
+/**
+ * execute une action dans un fichier controleur
+ * @param string $url
+ * @param array $routes
+ */
+function dispatch(string $url, array $routes)
+{
+    //obtention des information de routage
+    $routeInfo = getRouteInfo($url, $routes);
+
+    //chargement du fichier controleur
+
+    require SRC_PATH . "/" . $routeInfo["controller"] . "php";
+
+    //execution de l'action
+    $routeInfo["action"](...$routeInfo["params"]);
+
 }
