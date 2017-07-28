@@ -11,7 +11,7 @@ function getViewContent($view, array $data = [])
 //Exportation des variables
     extract($data);
 //inclusion de la vue
-    require "views/{$view}.php";
+    require VIEW_PATH."/{$view}.php";
 //Récupération du contenu du tampon dans une variable
     $viewContent = ob_get_clean();
     return $viewContent;

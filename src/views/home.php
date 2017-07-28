@@ -1,9 +1,7 @@
 <h1>Bonjour <?=$name?></h1>
-
-
     <?php foreach ($list as $fileName): ?>
         <li>
-            <a href="download.php?file=<?=$fileName?>" >
+            <a href="c=download.php$file=<?=$fileName?>" >
             <?=$fileName?>
             </a>
         </li>
