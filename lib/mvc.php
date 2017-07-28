@@ -51,4 +51,34 @@ function dispatch(string $url, array $routes)
     //execution de l'action
     $routeInfo["action"](...$routeInfo["params"]);
 
+
+    //autres possibilite
+    //call_user_func($routeInfo["action"](...$routeInfo["params"]);
+
+}
+
+function getRouteInfo(string $url,array $routes):array {
+    $routeInfo = [
+        "controller" => "error",
+        "action" => "notFoundAction",
+        "params" => []
+    ];
+
+    foreach ($routes as $path => $target){
+        $path = "#{$path}#";
+        if(preg_match($path,$url, $matches)){
+            //recuperation de l'action et du controleur
+            $parts = explode(":", $target);
+            //elimination du premier element
+            array_shift($matches);
+
+            $routeInfo["controller"]= $parts[0];
+            $routeInfo["action"] = $parts[1];
+            $routeInfo["params"] = $matches;
+
+            break;
+
+        }
+    }
+    return $routeInfo;
 }
