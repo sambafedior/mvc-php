@@ -11,6 +11,7 @@ function getViewContent($view, array $data = [])
 //Exportation des variables
     extract($data);
 //inclusion de la vue
+
     require VIEW_PATH . "/{$view}.php";
 //Récupération du contenu du tampon dans une variable
     $viewContent = ob_get_clean();
@@ -35,50 +36,67 @@ function getRenderedView($view, array $data = [], $layout = "default-layout")
 }
 
 /**
- * execute une action dans un fichier controleur
+ * Exécute un action dans un fichier contrôleur
+ * en passant les éventuels paramètres
  * @param string $url
  * @param array $routes
  */
 function dispatch(string $url, array $routes)
 {
-    //obtention des information de routage
+    //Obtention des informations de routage
     $routeInfo = getRouteInfo($url, $routes);
 
-    //chargement du fichier controleur
+    //Chargement du fichier contrôleur
+    require CTRL_PATH . "/" . $routeInfo["controller"] . ".php";
 
-    require SRC_PATH . "/" . $routeInfo["controller"] . "php";
-
-    //execution de l'action
+    //Exécution de l'action
     $routeInfo["action"](...$routeInfo["params"]);
 
-
-    //autres possibilite
-    //call_user_func($routeInfo["action"](...$routeInfo["params"]);
-
+    //autre possibilite
+    //call_user_func_array($routeInfo["action"],$routeInfo["params"] );
 }
 
-function getRouteInfo(string $url,array $routes):array {
+/**
+ * @param string $url
+ * @param array $routes
+ * @return array
+ */
+function getRouteInfo(string $url, array $routes): array
+{
     $routeInfo = [
         "controller" => "error",
         "action" => "notFoundAction",
         "params" => []
     ];
 
-    foreach ($routes as $path => $target){
-        $path = "#{$path}#";
-        if(preg_match($path,$url, $matches)){
-            //recuperation de l'action et du controleur
+    foreach ($routes as $path => $target) {
+        $route = "#^{$path}$#";
+
+        if (preg_match($route, $url, $matches)) {
+            //Récupération de l'action et du contrôleur
             $parts = explode(":", $target);
-            //elimination du premier element
+            //élimination du premier élément du tableau des correspondances
             array_shift($matches);
 
-            $routeInfo["controller"]= $parts[0];
+            $routeInfo["controller"] = $parts[0];
             $routeInfo["action"] = $parts[1];
             $routeInfo["params"] = $matches;
 
             break;
-
         }
     }
+
     return $routeInfo;
+}
+
+/** fonction à la connexion à la base de données
+ * @return PDO
+ */
+function getPDO():PDO {
+    return new PDO(
+        DSN,
+        DB_USER,
+        DB_PASS,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
 }
